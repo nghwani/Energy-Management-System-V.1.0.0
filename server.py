@@ -8,9 +8,10 @@ from sqlalchemy.orm import DeclarativeBase
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import UserForm, LoginForm, RegisterForm
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-app.secret_key = 'iamumemeflex'
+app.secret_key = os.environ.get('EMS_KEY')
 csrf = CSRFProtect(app)
 csrf.init_app(app)
 Bootstrap5(app)
@@ -24,7 +25,7 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URI', "sqlite:///users.db")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -185,4 +186,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+    app.run(debug=False)
