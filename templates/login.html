@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    {% endwith %}
+</div>
+
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm p-4">
+            <h1 class="mb-4 text-center">Welcome Back!</h1>
+            <p class="text-center text-muted">Please sign in to continue to WattWorks EMS</p>
+            <form action="{{ url_for('get_logged_in') }}" method="post">
+                {{ form.hidden_tag() }}
+                
+                
+                <div class="mb-3">
+                    <input type="email" name="email" placeholder="Enter your email" required class="form-control">
+                </div>
+                
+                
+                <div class="mb-3">
+                    <input type="password" name="password" placeholder="Enter your password" required class="form-control">
+                </div>
+                
+                
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="remember" class="form-check-input" id="rememberMe">
+                    <label for="rememberMe" class="form-check-label">Remember Me</label>
+                </div>
+
+                
+                <button type="submit" class="btn btn-primary btn-block w-100">Sign In</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

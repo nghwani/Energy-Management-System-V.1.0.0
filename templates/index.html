@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <img src="{{ url_for('static', filename='css/image/electricity.png') }}" alt="WattWorks EMS logo" class="img-fluid my-4" style="max-width: 150px; height: auto;">
+        <h1>Welcome to WattWorks EMS</h1>
+        <p class="lead mt-3">Manage and track your energy usage efficiently</p>
+        
+        <div class="d-grid gap-2 col-6 mx-auto mt-4">
+            <a href="{{ url_for('get_logged_in') }}" class="btn btn-primary btn-lg" aria-label="Login to your account">
+                Login
+            </a>
+            <a href="{{ url_for('get_registered') }}" class="btn btn-secondary btn-lg" aria-label="Register for a new account">
+                Register
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

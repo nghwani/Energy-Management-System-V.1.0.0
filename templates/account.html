@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Welcome, {{ name }}!</h1>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    {% if records_page.items %}
+    <div class="table-responsive my-4">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Units</th>
+                    <th scope="col">Cost (Tzs)</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Note</th>
+                    <th scope="col" colspan="2" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records_page.items %}
+                <tr>
+                    <td>{{ record.energy }}</td>
+                    <td>{{ record.cost }}</td>
+                    <td>{{ record.date_posted.strftime('%d %m %Y') }}</td>
+                    <td>{{ record.comments }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-primary btn-sm" href="{{ url_for('edit_record', record_id=record.id) }}" role="button">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-outline-danger btn-sm" href="{{ url_for('delete_record', record_id=record.id) }}" role="button">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if records_page.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('user_account', page=records_page.prev_num) }}">Previous</a>
+                </li>
+                {% endif %}
+
+                {% for page_num in records_page.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == records_page.page %}
+                        <li class="page-item active">
+                            <a class="page-link" href="{{ url_for('user_account', page=page_num) }}">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('user_account', page=page_num) }}">{{ page_num }}</a>
+                        </li>
+                        {% endif %}
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">…</span></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if records_page.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('user_account', page=records_page.next_num) }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center my-5" role="alert">
+        <strong>No records available.</strong> Add billing data to start tracking.
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('record') }}" class="btn btn-primary btn-lg me-2">
+            <i class="bi bi-plus-circle"></i> Add New Billing
+        </a>
+    </div>
+</div>
+{% endblock %}

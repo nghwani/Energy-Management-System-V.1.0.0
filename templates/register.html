@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="text-center mb-5">
+            <h1>Create Your Account</h1>
+            <p class="text-muted">Sign up to start managing your energy data effectively.</p>
+        </div>
+        <form action="{{ url_for('get_registered') }}" method="post" class="shadow-lg p-4 rounded bg-light">
+            {{ form.hidden_tag() }}
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-warning" role="alert">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter your name" required class="form-control"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required class="form-control"/>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required class="form-control"/>
+            </div>
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

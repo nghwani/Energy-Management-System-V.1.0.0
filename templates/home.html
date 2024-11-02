@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<!-- Welcome Section -->
+<div class="container text-center mt-5">
+    <h1 class="mb-4">Welcome to WattWorks EMS</h1>
+    <p class="lead">The Energy Management System designed to help you monitor, track, and manage energy usage and costs. Whether you're a homeowner or business owner, WattWorks provides insights to optimize your energy consumption.</p>
+</div>
+
+<!-- Key Features Section -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Key Features</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">⚡ Energy Tracking</h5>
+                    <p class="card-text">Easily track your daily, weekly, and monthly energy usage. Gain insights into your consumption trends with detailed reports.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">💰 Cost Monitoring</h5>
+                    <p class="card-text">Stay informed on your energy expenses with real-time billing data. Set budget goals to help manage costs effectively.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">📝 Custom Notes</h5>
+                    <p class="card-text">Keep track of specific energy units and associated costs. Create custom notes for easy reference and billing reminders.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">How It Works</h3>
+    <p class="text-center">WattWorks simplifies your energy management process in a few easy steps.</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Step 1: Record your energy consumption data.</li>
+        <li class="list-group-item">Step 2: Log your energy costs.</li>
+        <li class="list-group-item">Step 3: Add custom notes and set budget goals.</li>
+        <li class="list-group-item">Step 4: Track and analyze your energy data to make informed decisions.</li>
+    </ul>
+</div>
+
+{% if current_user.is_authenticated %}
+<div class="container text-center mt-5">
+    <h2 class="mb-4">
+        <a href="{{ url_for('record') }}" class="btn btn-lg btn-primary px-5 py-3">Record Your Energy Data Now!</a>
+    </h2>
+</div>
+
+{% else %}
+<div class="container text-center mt-5">
+    <h2 class="mb-4">
+        <a href="{{ url_for('get_registered') }}" class="btn btn-lg btn-primary px-5 py-3">
+            Get Started - Register Now!
+        </a>
+    </h2>
+</div>
+{% endif %}
+
+{% endblock %}
